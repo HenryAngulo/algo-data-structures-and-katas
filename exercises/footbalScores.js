@@ -50,7 +50,6 @@ function binarySearchAndReturnNumberOfLowerValues(array, value) {
 }
 
 function counts(teamA, teamB) {
-  // Write your code here
   teamA.sort((a, b) => a - b)
   const lessOrEqualTeamAMatches = teamB.map((goalsB) =>
     binarySearchAndReturnNumberOfLowerValues(teamA, goalsB),

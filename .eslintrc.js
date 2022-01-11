@@ -15,7 +15,7 @@ module.exports = {
     //General rules
     'object-curly-newline': `off`,
     'no-mixed-operators': `off`,
-    'no-plusplus': 1,
+    'no-plusplus': 0,
     semi: [`error`, `never`],
     'max-len': [
       `error`,
@@ -64,5 +64,9 @@ module.exports = {
       },
     ],
     'prettier/prettier': [`warn`],
+    'no-unused-vars': [
+      `error`,
+      { argsIgnorePattern: `next|_`, ignoreRestSiblings: true },
+    ],
   },
 }
