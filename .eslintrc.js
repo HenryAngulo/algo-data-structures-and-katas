@@ -25,6 +25,7 @@ module.exports = {
         ignoreUrls: true,
         ignoreRegExpLiterals: true,
         ignoreTemplateLiterals: true,
+        ignoreComments: true,
       },
     ],
     'no-console': `warn`,
