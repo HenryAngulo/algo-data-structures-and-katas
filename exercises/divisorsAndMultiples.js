@@ -50,9 +50,6 @@ function getCount(arr) {
   return count
 }
 
-const testCase = getCount([
-  7, 4, 8, 16, 32, 20, 31, 3, 1, 11, 121, 121, 121, 1212, 12, 12, 1212, 121, 21,
-  21, 21, 21, 212, 12, 12, 12, 12, 1212, 12, 2,
-])
+const testCase = getCount([7, 4, 8, 16, 32, 20, 31, 2])
 
 console.log(testCase)
