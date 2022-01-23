@@ -32,7 +32,7 @@ module.exports = {
     radix: 1,
     'prefer-destructuring': `off`,
     'prefer-const': [
-      `error`,
+      `warn`,
       {
         destructuring: `all`,
         ignoreReadBeforeAssign: false,
