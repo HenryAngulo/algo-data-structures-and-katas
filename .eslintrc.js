@@ -28,7 +28,8 @@ module.exports = {
         ignoreComments: true,
       },
     ],
-    'no-console': `warn`,
+    'no-constant-condition': 0,
+    'no-console': 0,
     radix: 1,
     'prefer-destructuring': `off`,
     'prefer-const': [
