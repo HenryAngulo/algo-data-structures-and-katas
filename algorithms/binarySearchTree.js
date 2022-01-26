@@ -83,57 +83,59 @@ function BinarySearchTree(initialRootNode) {
 
   function printFormatted(
     node = this.rootNode,
-    levelsInfo = { maxLevel: 0, maxItemLength: 0 },
+    levelsInfo = { maxLevel: 0, maxNodeValue: 0 },
     currentLevel = 0,
   ) {
     if (node == null) {
       return null
     } else {
-      levelsInfo.maxItemLength = Math.max(
-        levelsInfo.maxItemLength,
-        node.value.toString().length,
-      )
+      levelsInfo.maxNodeValue = Math.max(levelsInfo.maxNodeValue, node.value)
       levelsInfo.maxLevel = Math.max(levelsInfo.maxLevel, currentLevel)
       printFormatted(node.leftChild, levelsInfo, currentLevel + 1)
       printFormatted(node.rightChild, levelsInfo, currentLevel + 1)
       if (currentLevel === 0) {
         let formattedTree = ``
-        const defaultEmptyValue = `|x|`
-        let { maxLevel, maxItemLength } = levelsInfo
-        maxItemLength = maxItemLength + 4
-        const maxItems = Math.pow(2, maxLevel)
+        const defaultEmptyValue = `-|x|-`
+        const maxItemLength = levelsInfo.maxNodeValue.toString().length + 4
+        const maxItems = Math.pow(2, levelsInfo.maxLevel)
         const lengthOfLastLine = maxItems * maxItemLength
         let currentLevel = [this.rootNode]
-        let currentLevelIndex = 0
-        let isNextLevelValid = true
-        while (isNextLevelValid) {
-          isNextLevelValid = false
-          const nextLevel = Array.from({
-            length: Math.pow(2, currentLevelIndex + 1),
-          })
-          const itemsNumber = Math.pow(2, currentLevelIndex)
+        let nextLevel = []
+        while (nextLevel != null) {
+          nextLevel = null
+          const itemsNumber = currentLevel.length
           const quadrantLength = lengthOfLastLine / itemsNumber
           const padLeft = Math.floor(quadrantLength / 2)
-          let formattedLevel = ``
-          currentLevel.forEach((item, itemIndex) => {
-            formattedLevel += `${
-              item ? `-|${item.value}|-` : defaultEmptyValue
-            }`
-              .padStart(padLeft + maxItemLength / 2, `-`)
-              .padEnd(quadrantLength, `-`)
-            if (item?.leftChild != null) {
-              isNextLevelValid = true
-              nextLevel[itemIndex * 2] = item.leftChild
-            }
-            if (item?.rightChild != null) {
-              isNextLevelValid = true
-              nextLevel[itemIndex * 2 + 1] = item.rightChild
-            }
-          })
-          formattedLevel.padEnd(lengthOfLastLine, `-`)
+          const formattedLevel = currentLevel.reduce(
+            (prev, node, nodeIndex) => {
+              let formattedItem = defaultEmptyValue
+              if (node != null) {
+                formattedItem = `-|${node.value}|-`
+                if (node.leftChild != null) {
+                  if (nextLevel == null) {
+                    nextLevel = Array.from({
+                      length: itemsNumber * 2,
+                    })
+                  }
+                  nextLevel[nodeIndex * 2] = node.leftChild
+                }
+                if (node.rightChild != null) {
+                  if (nextLevel == null) {
+                    nextLevel = Array.from({
+                      length: itemsNumber * 2,
+                    })
+                  }
+                  nextLevel[nodeIndex * 2 + 1] = node.rightChild
+                }
+              }
+              return `${prev}${formattedItem
+                .padStart(padLeft + maxItemLength / 2, `-`)
+                .padEnd(quadrantLength, `-`)}`
+            },
+            ``,
+          )
           formattedTree += `${formattedLevel}\n\n\n`
           currentLevel = nextLevel
-          currentLevelIndex += 1
         }
 
         return formattedTree
@@ -150,8 +152,8 @@ function BinarySearchTree(initialRootNode) {
   }
 }
 
-const root = new TreeNode(50)
-const binarySearchTree = new BinarySearchTree(root)
+const rootNode = new TreeNode(50)
+const binarySearchTree = new BinarySearchTree(rootNode)
 binarySearchTree.insert(25)
 binarySearchTree.insert(75)
 binarySearchTree.insert(11)
@@ -168,3 +170,15 @@ binarySearchTree.insert(82)
 binarySearchTree.insert(95)
 //binarySearchTree.traverse(console.log)
 console.log(binarySearchTree.printFormatted())
+/*
+Sample output
+
+----------------------|50|----------------------
+ 
+----------|25|--------------------|75|----------
+ 
+----|11|--------|33|--------|56|--------|89|----
+ 
+-|10|--|12|--|30|--|40|--|52|--|61|--|82|--|95|-
+
+*/
