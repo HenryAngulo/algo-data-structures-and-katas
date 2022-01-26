@@ -145,7 +145,7 @@ function BinarySearchTree(initialRootNode) {
           formattedTree += `${formattedLevel}\n\n\n`
           currentLevel = nextLevel
         }
-
+        console.log(formattedTree)
         return formattedTree
       }
     }
@@ -176,9 +176,7 @@ binarySearchTree.insert(61)
 binarySearchTree.insert(89)
 binarySearchTree.insert(82)
 binarySearchTree.insert(95)
-//binarySearchTree.traverse(console.log)
-console.log(binarySearchTree.printFormatted())
-console.log(binarySearchTree)
+binarySearchTree.printFormatted()
 /*
 Sample output
 
@@ -190,4 +188,19 @@ Sample output
  
 -|10|--|12|--|30|--|40|--|52|--|61|--|82|--|95|-
 
+*/
+binarySearchTree.traverse((node) => {
+  node.value = node.value * 2
+})
+binarySearchTree.printFormatted()
+/*
+Sample output
+
+-------------------------|100|--------------------------
+ 
+------------|50|-----------------------|150|------------
+ 
+-----|22|----------|66|---------|112|---------|178|-----
+ 
+-|20|---|24|---|60|---|80|---|104|--|122|--|164|--|190|-
 */
