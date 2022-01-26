@@ -27,17 +27,24 @@ function BinarySearchTree(initialRootNode) {
   }
 
   function insert(value, node = this.rootNode) {
-    if (value <= node.value) {
-      if (node.leftChild == null) {
-        node.leftChild = new TreeNode(value)
-      } else {
-        insert(value, node.leftChild)
-      }
+    if (node == null) {
+      this.rootNode = new TreeNode(value)
+      return null
     } else {
-      if (node.rightChild == null) {
-        node.rightChild = new TreeNode(value)
+      if (value <= node.value) {
+        if (node.leftChild == null) {
+          node.leftChild = new TreeNode(value)
+          return null
+        } else {
+          return insert(value, node.leftChild)
+        }
       } else {
-        insert(value, node.rightChild)
+        if (node.rightChild == null) {
+          node.rightChild = new TreeNode(value)
+          return null
+        } else {
+          return insert(value, node.rightChild)
+        }
       }
     }
   }
@@ -79,6 +86,7 @@ function BinarySearchTree(initialRootNode) {
     traverse(callback, node.leftChild)
     callback(node)
     traverse(callback, node.rightChild)
+    return null
   }
 
   function printFormatted(
@@ -152,8 +160,8 @@ function BinarySearchTree(initialRootNode) {
   }
 }
 
-const rootNode = new TreeNode(50)
-const binarySearchTree = new BinarySearchTree(rootNode)
+const binarySearchTree = new BinarySearchTree()
+binarySearchTree.insert(50)
 binarySearchTree.insert(25)
 binarySearchTree.insert(75)
 binarySearchTree.insert(11)
@@ -170,6 +178,7 @@ binarySearchTree.insert(82)
 binarySearchTree.insert(95)
 //binarySearchTree.traverse(console.log)
 console.log(binarySearchTree.printFormatted())
+console.log(binarySearchTree)
 /*
 Sample output
 
