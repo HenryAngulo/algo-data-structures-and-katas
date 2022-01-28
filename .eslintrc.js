@@ -32,13 +32,7 @@ module.exports = {
     'no-console': 0,
     radix: 1,
     'prefer-destructuring': `off`,
-    'prefer-const': [
-      `warn`,
-      {
-        destructuring: `all`,
-        ignoreReadBeforeAssign: false,
-      },
-    ],
+    'prefer-const': 0,
     'no-useless-concat': `error`,
     'no-negated-condition': 0,
     quotes: [`error`, `backtick`],
